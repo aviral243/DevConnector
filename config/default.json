@@ -1,0 +1,3 @@
+{
+    "mongoURI": "mongodb+srv://aviral:aviral123@devconnect-ig2ds.gcp.mongodb.net/test?retryWrites=true&w=majority"
+}
