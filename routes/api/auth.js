@@ -7,12 +7,13 @@ const config = require('config');
 const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
 
-// @route GET api/auth
-// @desc Test Route
+// @route POST api/auth
+// @desc Authenticate user & get token
 // @access Public
+
 router.get('/', auth, async (req, res) => {
     try {
-        const user = User.findById(req.user.id).select('-password').catch(() =>{});
+        const user = await User.findById(req.user.id).select('-password');
         res.json(user);
     } catch(err) {
         console.error(err.message);
@@ -36,18 +37,18 @@ async (req, res) => {
 
     try {
 
-        let user = User.findOne({ email }).catch(() => {});
+        let user = await User.findOne({ email });
 
         if(!user) {
-            console.log("Test 1");
-            return res.status(400).json({ errors: [{ msg: 'Invalid Credentials '}] });
+            return res
+            .status(400)
+            .json({ errors: [{ msg: 'Invalid Credentials '}] });
             
         }
 
-        const isMatch = bcrypt.compare(password, user.password).catch(() => {})
+        const isMatch = await bcrypt.compare(password, user.password);
         
         if(!isMatch) {
-            console.log("Test 1");
             return res.status(400).json({ errors: [{ msg: 'Invalid Credentials '}] });
         }
 

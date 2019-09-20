@@ -1,4 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://aviral:aviral123@devconnect-ig2ds.gcp.mongodb.net/test?retryWrites=true&w=majority",
+    "mongoURI": "mongodb+srv://aviral:%2Bsetthere@devconnect-ig2ds.gcp.mongodb.net/test?retryWrites=true&w=majority",
     "jwtSecret": "mysecrettoken"
 }

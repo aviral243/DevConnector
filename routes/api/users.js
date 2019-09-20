@@ -26,11 +26,11 @@ async (req, res) => {
 
     try {
 
-        let user = User.findOne({ email }).catch(() => {});
+        let user = await User.findOne({ email });
 
-        // if(user) {
-        //     return res.status(400).json({ errors: [{ msg: 'User already exists '}] });
-        // }
+        if(user) {
+            return res.status(400).json({ errors: [{ msg: 'User already exists '}] });
+        }
 
         const avatar = gravatar.url(email, {
             s: '200',
@@ -45,10 +45,10 @@ async (req, res) => {
             password
         });
 
-        const salt = bcrypt.genSalt(10).catch(() => {});
+        const salt = await bcrypt.genSalt(10);
         
-        user.password = bcrypt.hash(password, salt).catch(() => {});
-        user.save().catch(() => {});
+        user.password = await bcrypt.hash(password, salt);
+        await user.save();
 
         const payload = {
             user: {
